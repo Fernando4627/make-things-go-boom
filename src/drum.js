@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import ReactDom from 'react-dom';
+import ReactDOM from 'react-dom';
 
-export default class DrumPad extends Component{
+export default class DrumPad extends Component {
   constructor(props) {
     super(props);
 
-    this.audio = React.createRef();
-    this.onPadClick = this.onPadClick.bind(this);
+    this.audioHandler = React.createRef();
+    this.onDrumPadClicked = this.onDrumPadClicked.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
-    this.onKeyUp = this.onKeyUp.bind(this)
+    this.onKeyUp = this.onKeyUp.bind(this);
   }
 
-  onPadClick(){
+  onDrumPadClicked() {
     const text = this.props.padItem.id.replace(/-/g, " ");
     const audioElm = this.audioHandler.current;
 
@@ -20,19 +20,19 @@ export default class DrumPad extends Component{
     audioElm.play();
   }
 
-  onKeyDown(e) {
-    const root = ReactDom.findDOMNode(this);
+  onKeyDown(event) {
+    const root = ReactDOM.findDOMNode(this);
 
-    if(e.keyCode === this.props.padItem.keyCode) {
+    if (event.keyCode === this.props.padItem.keyCode) {
       root.classList.add("active");
-      this.onPadClick();
+      this.onDrumPadClicked();
     }
   }
 
-  onKeyUpe(e) {
-    const root = ReactDom.findDOMNode(this);
+  onKeyUp(event) {
+    const root = ReactDOM.findDOMNode(this);
 
-    if(e.keyCode === this.props.padItem.keyCode) {
+    if (event.keyCode === this.props.padItem.keyCode) {
       setTimeout(() => {
         root.classList.remove("active");
       }, 33);
@@ -40,7 +40,7 @@ export default class DrumPad extends Component{
   }
 
   componentDidUpdate() {
-    this.audio.current.volume = this.props.volumeValue / 100;
+    this.audioHandler.current.volume = this.props.volumeValue / 100;
   }
 
   componentDidMount() {
@@ -56,10 +56,11 @@ export default class DrumPad extends Component{
   render() {
     const padItem = this.props.padItem;
 
-    return(
-      <div className = '' id = {padItem.id} onClick={this.onDrumPadClicked}>
-        <audio className= '' id={padItem.keyTrigger} src={padItem.url} ref={this.audio}/>{padItem.keyTrigger}
-        </div>
+    return (
+      <div className="drum-pad" id={padItem.id} onClick={this.onDrumPadClicked}>
+        <audio className="clip" id={padItem.keyTrigger} src={padItem.url} ref={this.audioHandler} />
+        {padItem.keyTrigger}
+      </div>
     )
   }
 }
