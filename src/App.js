@@ -1,5 +1,4 @@
-import React { Component }from 'react';
-import anime from 'animejs/lib/anime.es.js';
+import React, { Component } from 'react';
 import Drums from './drum'
 import './App.css';
 
@@ -118,7 +117,7 @@ import './App.css';
     "--thumb-height": "1.15em",
     "--thumb-border-radius": "40%",
     "--thumb-color": "#202020",
-    "--thumb-border": "1px solid #000"
+    "--thumb-border": "2px solid #000"
   };
   
   export default class App extends Component {
@@ -206,10 +205,10 @@ import './App.css';
           </div>
   
           <div className="drum-control">
-            <div className="drum-control-volumn">
+            <div className="drum-control-volume">
               <i className="fas fa-volume-down" ref={this.iconVolume}></i>
               <span> Volume</span>
-              <span className="drum-control-volumn-value" ref={this.displayVolumeValue}> {this.state.volumeValue}</span>
+              <span className="drum-control-volume-value" ref={this.displayVolumeValue}> {this.state.volumeValue}</span>
               <input type="range" onInput={this.onVolumeChanged} onMouseLeave={this.onMouseLeaveInput} style={volumeHandlerStyle} ref={this.volumeHandler} />
             </div>
             <div className="drum-control-bank">
@@ -237,4 +236,4 @@ import './App.css';
     }
   }
 
-export default App;
+
